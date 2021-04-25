@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<xs:schema  xmlns:b="http://schemas.microsoft.com/biztalk/2003"     xmlns:xs="http://www.w3.org/2001/XMLSchema"  elementFormDefault = "qualified"  attributeFormDefault = "unqualified" >
+
+<xs:element name="MyBook">
+  <xs:annotation>
+     <xs:documentation> Kitap nesnelerine ait xml yapısı : Alphanumerik veya Numerik alanları belirtir, katakter sayıları....Kısaca excel şema doğrulaması </xs:documentation>
+  </xs:annotation>
+  
+  <xs:complexType>
+    <xs:sequence>
+          <xs:element name="book" maxOccurs = "unbounded">
+	      <xs:annotation>
+		      <xs:documentation> Her bir kitaba ait bilgileri içerir.</xs:documentation>
+		  </xs:annotation>
+	      <xs:complexType>
+		      <xs:sequence>
+					<xs:element name="title">
+					  <xs:annotation>
+					     <xs:documentation>Kitap Adı</xs:documentation>
+					  </xs:annotation>
+					  <xs:simpleType>
+					     <xs:restriction base="xs:string">
+						    <xs:minLength value="0"></xs:minLength>
+							<xs:maxLength value="200"></xs:maxLength>
+						 </xs:restriction>
+					  </xs:simpleType>
+					</xs:element>	 
+					<xs:element name="price" minOccurs="0">
+					    <xs:annotation>
+						    <xs:documentation> Kitap Fiyatı </xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+						    <xs:restriction>
+							    <xs:minLength value="0"></xs:minLength>
+								<xs:maxLength value="80"></xs:maxLength>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>		
+					<xs:element name="releaseDate" type="xs:date">
+					    <xs:annotation>
+						   <xs:documentation>  Kitap yayın tarihi</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:sequence>
+					    <xs:element name="author">
+						   <xs:annotation>
+						       <xs:documentation>Kitap yazar bilgileri</xs:documentation>
+						   </xs:annotation>
+						   <xs:complexType>
+						       <xs:sequence>
+							       <xs:element name="yas" minOccurs="0">
+								    <xs:annotation>
+									  <xs:documentation>Yaş bilgisi</xs:documentation>
+									</xs:annotation>
+									<xs:simpleType>
+									   <xs:restriction base="xs:string">
+									     <xs:minLength value="0"></xs:minLength>
+										 <xs:maxLength value="4"></xs:maxLength>
+									   </xs:restriction>									
+									</xs:simpleType>
+								   </xs:element>
+								   <xs:element name="name" minOccurs="0">
+										<xs:annotation>
+									     <xs:documentation>Ad bilgisi</xs:documentation>
+									    </xs:annotation>
+										<xs:simpleType>
+										  <xs:restriction base="xs:string">
+										     <xs:minLength value="0"></xs:minLength>
+											 <xs:maxLength value="50" ></xs:maxLength>
+										  </xs:restriction>
+										</xs:simpleType>
+								   </xs:element>
+								   <xs:element name="gender">
+								       <xs:annotation>
+									      <xs:documentation> Cinsiyet bilgisi</xs:documentation>
+									   </xs:annotation>
+									   <xs:simpleType>
+									      <xs:restriction base="xs:string">
+										     <xs:length value="1"></xs:length>
+											 <xs:enumeration value="E"></xs:enumeration>
+											 <xs:enumeration value="K"></xs:enumeration>
+										  </xs:restriction>
+									   </xs:simpleType>
+								   </xs:element>
+								   <xs:element name="dateOfBirth" type="xs:date">
+								     <xs:annotation>
+									      <xs:documentation> Doğum tarih bilgisi</xs:documentation>
+									   </xs:annotation>
+								   </xs:element>
+								   <xs:element name="placeOfBirth" minOccurs="0">
+								        <xs:annotation>
+									     <xs:documentation>Doğum Yeri</xs:documentation>
+									    </xs:annotation>
+										<xs:simpleType>
+										   <xs:restriction base="xs:string">
+										      <xs:minLength value="0"></xs:minLength>
+											  <xs:maxLength value="120"></xs:maxLength>
+										   </xs:restriction>
+										</xs:simpleType>
+								   </xs:element>
+								   <xs:element name="address" minOccurs="0">
+								       <xs:annotation>
+									        <xs:documentation>Adres Bilgisi</xs:documentation>
+									   </xs:annotation>
+									   <xs:simpleType>
+									      <xs:restriction>
+										     <xs:minLength value="0"></xs:minLength>
+											 <xs:maxLength value="150"></xs:maxLength>
+										  </xs:restriction>
+									   </xs:simpleType>
+								   </xs:element>
+							   </xs:sequence> 
+						   </xs:complexType>
+						</xs:element>
+					</xs:sequence>
+			  </xs:sequence>      
+		  </xs:complexType>
+		  </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+
+</xs:schema>

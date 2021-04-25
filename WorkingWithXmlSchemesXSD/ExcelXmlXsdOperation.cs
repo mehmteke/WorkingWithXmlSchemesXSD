@@ -19,7 +19,7 @@ namespace WorkingWithXmlSchemesXSD
                 <book>
                    <title> {0} </title> 
                    <price> {1} <price> 
-                   <ReleaseDate> {2} </ReleaseDate>
+                   <releaseDate> {2} </releaseDate>
                    <author>
                          <yas>  {3} </yas>   
                          <name> {4} </name>       
@@ -134,6 +134,7 @@ namespace WorkingWithXmlSchemesXSD
                 Console.WriteLine("Hata " + ex.Message.ToString()) ;
                 throw;
             }
+
 
            return true;
         }
