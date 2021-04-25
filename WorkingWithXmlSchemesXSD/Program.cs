@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 
 namespace WorkingWithXmlSchemesXSD
 {
@@ -7,11 +9,10 @@ namespace WorkingWithXmlSchemesXSD
         static void Main(string[] args)
         {
 
-            ExcelXmlXsdOperation.ConvertExcelToXml();
+            //ExcelXmlXsdOperation.ConvertExcelToXml();
+            ExcelXmlXsdOperation.ValidateXmlWithXsd();
+
             Console.ReadKey();
-
-
-
             Console.WriteLine("Hello World!");
         }
     }

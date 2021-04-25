@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<MyClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="book.xsd" >
+  <book>
+    <title> İnce Memed </title> 
+    <price> 35,42 </price> 
+    <releaseDate> 10.06.1995 00:00:00 </releaseDate>
+    <author>
+      <yas>  92 </yas>   
+      <name> Yaşar Kemal </name>       
+      <gender> E </gender>
+      <dateOfBirth> 10.06.1923 00:00:00 </dateOfBirth>
+      <placeOfBirth> Gökçeadam </placeOfBirth>
+      <address> İstanbul </address>
+    </author>
+    </book>
+</MyClass>

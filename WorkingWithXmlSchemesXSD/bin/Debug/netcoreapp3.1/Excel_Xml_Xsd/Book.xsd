@@ -30,7 +30,7 @@
 						    <xs:documentation> Kitap Fiyatı </xs:documentation>
 						</xs:annotation>
 						<xs:simpleType>
-						    <xs:restriction base="xs:string">
+						    <xs:restriction>
 							    <xs:minLength value="0"></xs:minLength>
 								<xs:maxLength value="80"></xs:maxLength>
 							</xs:restriction>

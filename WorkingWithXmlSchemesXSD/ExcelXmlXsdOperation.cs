@@ -5,6 +5,9 @@ using System.Data.OleDb;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Schema;
 
 namespace WorkingWithXmlSchemesXSD
 {
@@ -12,24 +15,24 @@ namespace WorkingWithXmlSchemesXSD
     public static class ExcelXmlXsdOperation
     {
         private readonly static string XmlHeader = @"<?xml version=""1.0"" encoding=""UTF-8""?>
-         <MyClass xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance""  xsi:noNamespaceSchemaLocation=""Book.xsd"" >";
+<MyClass xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance""  xsi:noNamespaceSchemaLocation=""Book.xsd"" >";
         private readonly static string XmlFooter = "</MyClass>";
         private readonly static string XmlNodeSchema =
-            @"
-                <book>
-                   <title> {0} </title> 
-                   <price> {1} <price> 
-                   <releaseDate> {2} </releaseDate>
-                   <author>
-                         <yas>  {3} </yas>   
-                         <name> {4} </name>       
-                         <gender> {5} </gender>
-                         <dateOfBirth> {6} </dateOfBirth>
-                         <placeOfBirth> {7} </placeOfBirth>
-                         <address> {8} </address>
-                   </author>
-                </book>
-               ";
+@"
+  <book>
+    <title> {0} </title> 
+    <price> {1} <price> 
+    <releaseDate> {2} </releaseDate>
+    <author>
+      <yas>  {3} </yas>   
+      <name> {4} </name>       
+      <gender> {5} </gender>
+      <dateOfBirth> {6} </dateOfBirth>
+      <placeOfBirth> {7} </placeOfBirth>
+      <address> {8} </address>
+    </author>
+    </book>
+";
         public static DataTable GetExcelDataInDataTableFormat(string excelPath, string sheetName)
         {
             DataTable dataTable = new DataTable();
@@ -49,7 +52,8 @@ namespace WorkingWithXmlSchemesXSD
                     dataAdapter.Fill(dataTable);
                 }
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Console.WriteLine("Hata + " + ex.Message.ToString());
                 throw;
             }
@@ -91,7 +95,7 @@ namespace WorkingWithXmlSchemesXSD
             return stringBuilder;
         }
 
-        public static string CombineXmlElements(Book book) 
+        public static string CombineXmlElements(Book book)
         {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.AppendFormat(XmlNodeSchema,
@@ -112,7 +116,7 @@ namespace WorkingWithXmlSchemesXSD
         {
             try
             {
-                string excelPath = @"C:\Users\...\Desktop\Excel_Xml";
+                string excelPath = @"C:\Users\MEHMTEKE\Desktop\Excel_Xml";
                 DataTable dataTable = ExcelXmlXsdOperation.GetExcelDataInDataTableFormat(excelPath, "Book$");
                 string xmlString = ConvertDataTableDataToString(dataTable);
                 string date = DateTime.Now.ToString("yyyyMMdd-HHmmss", System.Globalization.CultureInfo.InvariantCulture);
@@ -129,16 +133,37 @@ namespace WorkingWithXmlSchemesXSD
                 }
 
             }
-            catch (Exception ex )
+            catch (Exception ex)
             {
-                Console.WriteLine("Hata " + ex.Message.ToString()) ;
+                Console.WriteLine("Hata " + ex.Message.ToString());
                 throw;
             }
 
 
-           return true;
+            return true;
+        }
+
+        public static bool ValidateXmlWithXsd()
+        {
+            var path = System.AppDomain.CurrentDomain.BaseDirectory;
+            path = path + "Excel_Xml_Xsd";
+            XmlSchemaSet schema = new XmlSchemaSet();
+            schema.Add("", path + "\\Book.xsd");
+            XmlReader rd = XmlReader.Create(path + "\\Book.xml");
+            XDocument doc = XDocument.Load(rd);
+            doc.Validate(schema, ValidationEventHandler);
+
+            return true;
+        }
+
+        static void ValidationEventHandler(object sender, ValidationEventArgs e)
+        {
+            XmlSeverityType type = XmlSeverityType.Warning;
+            if (Enum.TryParse<XmlSeverityType>("Error", out type))
+            {
+                if (type == XmlSeverityType.Error) throw new Exception(e.Message);
+            }
         }
 
     }
-
 }
